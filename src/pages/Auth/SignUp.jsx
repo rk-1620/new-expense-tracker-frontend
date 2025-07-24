@@ -4,6 +4,11 @@ import AuthLayout from "../../components/layout/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import { validateEmail } from "../../utils/helper";
+import axiosInstance from "../../utils/axiosinstance";
+import { API_PATHS } from "../../utils/apiPath";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import uploadImage from "../../utils/uploadImage";
 
 
 const SignUp =  ()=>{
@@ -14,6 +19,7 @@ const SignUp =  ()=>{
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const {updateUser} = useContext(UserContext);
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -39,7 +45,35 @@ const SignUp =  ()=>{
         }
 
         setError("");
-    }
+
+        try{
+
+            if(profilePic){
+                const imgUploadsRes = await uploadImage(profilePic);
+                profileImageUrl = imgUploadsRes.imageUrl || "";
+            }
+
+            const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+                fullname,
+                email,
+                password,
+                profileImageUrl
+            });
+            const {user, token} = response.data;
+            if(token){
+                localStorage.setItem("token", token);
+                updateUser(user);
+                navigate("/dashboard");
+            }
+        }catch(err){
+            if(err.response && err.response.data.message){
+                setError(err.response.data.message)
+            }
+            else{
+                setError("Something Went wrong")
+            }
+        }
+    };
 
     return(
         <AuthLayout>
