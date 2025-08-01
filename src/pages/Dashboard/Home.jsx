@@ -10,33 +10,17 @@ import { addThousandsSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
-import Last30DaysExpenses from "../../components/Dashboard/last30DaysExpenses";
+import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
+import { useDashboard } from "../../context/DashBoardContext";
 
 const Home = () => {
   useUserAuth();
   const navigate = useNavigate();
-
-  const [dashboardData, setDashboardData] = useState(null);
+  const { dashboardData, fetchDashboardData } = useDashboard();
+  // const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const fetchDashboardData = async () => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
-      if (response.data) {
-        console.log(response.data);
-        setDashboardData(response.data);
-      }
-    } catch (err) {
-      console.log("Something went wrong try again");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     fetchDashboardData();
@@ -94,7 +78,7 @@ const Home = () => {
 
           <RecentIncomeWithChart
             data={dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []}
-            totalIncome={dashboardData?.totalIncome || 0}
+            totalIncome={dashboardData?.last60DaysIncome?.total || 0}
           />
 
           <RecentIncome

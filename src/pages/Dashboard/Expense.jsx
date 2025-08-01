@@ -29,7 +29,6 @@ const Expense =  ()=>{
         setLoading(true);
 
         try{
-            console.log("Full request URL:", axiosInstance.defaults.baseURL + API_PATHS.INCOME.GET_ALL_INCOME);
             const response = await axiosInstance.get(
                 `${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`
             );
@@ -155,7 +154,7 @@ const Expense =  ()=>{
                     title="Delete Expense"
                 >
                     <DeleteAlert
-                        content = "Are you sure to delte this expesne"
+                        content = "Are you sure to delete this expesne"
                         onDelete={()=>deleteExpense(openDeleteAlert.data)}
                     />
                     

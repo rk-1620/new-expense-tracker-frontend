@@ -10,7 +10,7 @@ const DashboardLayout = ({ children, activeMenu })=>{
 //   if (user === null) {
 //     return <div className="p-5 text-gray-500">Loading user...</div>;
 //   }
-    console.log("dashboardlauoyt", user);
+    // console.log("dashboardlauoyt", user);
     return(
         <div>
             <Navbar activeMenu={activeMenu} />
@@ -18,8 +18,6 @@ const DashboardLayout = ({ children, activeMenu })=>{
             {
                 user && (
                     <div className="flex" > 
-
-
                         <div className="grow mx-5" >
                             {children}
                         </div>
@@ -27,7 +25,6 @@ const DashboardLayout = ({ children, activeMenu })=>{
                     </div>
                 )
             }
-
         </div>
     );
 };

@@ -12,7 +12,8 @@ const TransactionInfoCard = ({title, icon, date, amount, type, hideDeleteBtn, on
             <div className="w-12 h-12 flex items-center justify-center text-xl text-gray-800 bg-gray-100 rounded-full">
                 {
                     icon ? (
-                        <img src={icon} alt={title} className="w-6 h-6" />
+                        // <img src={icon} alt={title} className="w-6 h-6" />
+                        <span className="text-2xl">{icon}</span>
                     ):(
                         <LuUtensils/>
                     )

@@ -4,6 +4,7 @@ import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
 
 const ExpenseList = ({transactions, onDelete, onDownload})=>{
+    console.log("ExpenseList",transactions);
     return(
         <div className="card">
             <div className="flex items-center justify-between">
@@ -19,7 +20,7 @@ const ExpenseList = ({transactions, onDelete, onDownload})=>{
                     transactions?.map((expense)=>(
                         <TransactionInfoCard
                         key={expense._id}
-                        title={expense.source}
+                        title={expense.category}
                         icon={expense.icon}
                         date={moment(expense.date).format("Do MMM YYYY")}
                         amount={expense.amount}

@@ -56,8 +56,37 @@ export const prepareExpenseLineChartData = (data = []) =>{
     const chartData = sortedData.map((item)=>({
         month: moment(item?.date).format('Do MMM'),
         amount: item?.amount,
-        source: item?.source,
+        category: item?.category,
     }));
 
     return chartData;
 }
+
+export const prepareSAllLineChartData = (income = [], expense = []) => {
+    const mapByDate = {};
+
+    // Process income
+    income.forEach(item => {
+        const date = moment(item.date).format('Do MMM');
+        if (!mapByDate[date]) {
+            mapByDate[date] = { date, income: 0, expense: 0 };
+        }
+        mapByDate[date].income += item.amount;
+    });
+
+    // Process expense
+    expense.forEach(item => {
+        const date = moment(item.date).format('Do MMM');
+        if (!mapByDate[date]) {
+            mapByDate[date] = { date, income: 0, expense: 0 };
+        }
+        mapByDate[date].expense += item.amount;
+    });
+
+    // Convert to array and sort by original date for correct ordering
+    const result = Object.values(mapByDate).sort((a, b) => {
+        return moment(a.date, 'Do MMM').toDate() - moment(b.date, 'Do MMM').toDate();
+    });
+
+    return result;
+};

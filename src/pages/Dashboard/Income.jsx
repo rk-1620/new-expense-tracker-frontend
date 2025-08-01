@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
 import { useUserAuth } from "../../hooks/useUserAuth";
+import { useDashboard } from "../../context/DashBoardContext";
 
 
 const Income =  ()=>{
@@ -36,7 +37,7 @@ const Income =  ()=>{
             );
 
             if(response.data){
-                console.log("IncomeOverview is rendering with data:", response.data);
+                // console.log("IncomeOverview is rendering with data:", response.data);
 
                 setIncomeData(response.data);
             }
@@ -74,13 +75,15 @@ const Income =  ()=>{
         }
 
     };
+    const { fetchDashboardData } = useDashboard();
     const deleteIncome = async (id)=>{
         try{
             await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id))
 
             setOpenDeleteAlert({show:false, data:null});
             toast.success("income delted succesfully");
-            fetchIncomeDetails();
+            await fetchIncomeDetails();
+            await fetchDashboardData();
         }catch(err){
             console.error("Error in deleting income", err.response?.message || err.message);
         }

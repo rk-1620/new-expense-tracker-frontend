@@ -1,6 +1,7 @@
 import { LuHandCoins, 
     LuLayoutDashboard, 
     LuLogOut, 
+    LuReceiptIndianRupee, 
     LuWalletMinimal } 
     from "react-icons/lu";
 
@@ -29,5 +30,11 @@ export const SIDE_MENU_DATA = [
         label: "Logout",
         icon: LuLogOut,
         path: "/logout",
+    },
+    {
+        id:"07",
+        label: "Recents",
+        icon: LuReceiptIndianRupee,
+        path: "/all-transactions",
     },
 ]

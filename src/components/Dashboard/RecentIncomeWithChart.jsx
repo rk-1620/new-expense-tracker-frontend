@@ -6,6 +6,9 @@ const COLORS = ["#875CF5", "#FA2C37", "#FF6900", "#4f39f6"];
 const RecentIncomeWithChart = ({ data, totalIncome }) => {
   const [chartData, setChartData] = useState([]);
 
+  // console.log(data);
+  // console.log(totalIncome);
+
   useEffect(() => {
     const groupedData = {};
 

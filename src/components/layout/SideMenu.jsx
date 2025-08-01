@@ -8,6 +8,7 @@ import CharAvatar from "../Cards/CharAvatar";
 const SideMenu = ({activeMenu})=>{
 
     const {user, clearUser} = useContext(UserContext);
+    console.log(user)
 
     const navigate = useNavigate();
     const handleClick = (route) =>{
@@ -48,12 +49,12 @@ const SideMenu = ({activeMenu})=>{
 
             {SIDE_MENU_DATA.map((item, index)=>(
                 <button
-                    key={`menu_${index}`}
+                    key={`menu_${item.id}`}
                     className={`w-full flex items-center gap-4 text-[15px] ${activeMenu == item.label ? "text-white bg-primary" : ""} py-3 px-6 rounded-lg mb-3`}
                     onClick={()=>{handleClick(item.path)}}
                 >
 
-                <item.icon className="text-xl"/>
+                <item.icon className="text-xl shrink-0"/>
                 {item.label}
                 </button>
             ))}
