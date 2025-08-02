@@ -26,15 +26,15 @@ export const SIDE_MENU_DATA = [
         path: "/expense",
     },
     {
-        id:"06",
-        label: "Logout",
-        icon: LuLogOut,
-        path: "/logout",
-    },
-    {
         id:"07",
         label: "Recents",
         icon: LuReceiptIndianRupee,
         path: "/all-transactions",
+    },
+    {
+        id:"06",
+        label: "Logout",
+        icon: LuLogOut,
+        path: "/logout",
     },
 ]
